@@ -36,3 +36,14 @@ display.addEventListener('click', () => {
         dataText.innerHTML = "Enter a city";
     }
 });
+
+document.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        const city = search.value.trim();
+        if (city) {
+            Weather(city);
+        } else {
+            dataText.innerHTML = "Enter a city";
+        }
+    }
+})
