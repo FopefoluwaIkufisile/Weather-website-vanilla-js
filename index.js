@@ -1,6 +1,5 @@
-import { config } from './config.js';
 
-const API_KEY = config.API_KEY;
+const API_KEY = "e34badeed65939eb23dfbe513e8e8d3a";
 const API_KEY_URL = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=`;
 
 const dataText = document.querySelector('.data-name');
@@ -12,7 +11,8 @@ const display = document.querySelector('.display-data');
 async function Weather(city) {
     try {
         const response = await fetch(API_KEY_URL + API_KEY + `&q=${city}`);
-        if (!response.ok) throw new Error("City not found");
+        console.log(response)
+        if (!response.ok) throw new Error(`City not found ${response.status} - ${response.statusText}`);
 
         const data = await response.json();
 
@@ -21,11 +21,14 @@ async function Weather(city) {
         dataTemp.innerHTML = Math.round(data.main.temp) + "°C";
         dataType.innerHTML = data.weather[0].main;
     } catch (error) {
+        console.error('Error fetching weather data:', error.message);
         dataText.innerHTML = "City not found";
         dataTemp.innerHTML = "Temp not found";
         dataType.innerHTML = "Type not found";
     }
 }
+
+
 
 // Run function when the button is clicked
 display.addEventListener('click', () => {
